@@ -7,19 +7,28 @@ class User extends Conexion{
 
 	private $_connect;
 
+	/*
+		Constructor principal de la clase
+		Crea una instancia de la clase Conexion
+	*/
 	function __construct(){
 		$this->_connect = new Conexion();
 	} 
 
+	/*
+		Mètodo para validar el inicio de sesión del usuario
+		Recibe: $username-> Usuario digitado por el usuario
+				$password-> Contraseña digitada por el usuario
+	*/
 	public function validateLogin($username, $password){
 		$array = array();
-		$clean_user = Clean_Sql($username);
-		$clean_pass = Clean_Sql($password);
+		$clean_user = Clean_Sql($username); //Limpiar campo
+		$clean_pass = Clean_Sql($password); //Limpiar campo
 		$query = "SELECT * FROM den_users WHERE usname = '$clean_user' ";
 		$result = $this->_connect->DoArraySQL($query);
 		if(count($result) > 0){
 			$pass_bd = $result['uspass'];
-			$fin = check($clean_pass, $pass_bd);	
+			$fin = check($clean_pass, $pass_bd); //Verificar contraseñas. Llamado al metodo check de functions	
 			if($fin != false){
 				session_start();
 				$_SESSION['id_us'] = $result['id'];
