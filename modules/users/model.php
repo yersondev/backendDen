@@ -24,7 +24,7 @@ class User extends Conexion{
 		$clean_user = Clean_Sql($username);
 		$clean_pass = Clean_Sql($password);
 		$query = "SELECT * FROM den_users WHERE usname = '$clean_user' ";
-		$result = $this->_connect->EjecutarSQL($query);
+		$result = $this->_connect->DoArraySQL($query);
 		if(count($result) > 0){
 			$pass_bd = $result['uspass'];
 			$fin = check($clean_pass, $pass_bd);	
@@ -44,7 +44,7 @@ class User extends Conexion{
 		if (isset($_SESSION['id_us'])) {
 			$id_us = $_SESSION['id_us'];
 			$query = "SELECT * FROM den_users WHERE id = '$id_us' ";
-			$result[] = $this->_connect->EjecutarSQL($query);
+			$result[] = $this->_connect->DoArraySQL($query);
 		}
 		return $result;
 	}
@@ -55,7 +55,7 @@ class User extends Conexion{
 		$clean_pass = Clean_Sql($password);
 		$crypt_pass = doBlowfish($clean_pass);
 		$query = "INSERT INTO den_users (name, doc, id_mun, id_dep, adress, dateBorn, sex, usname, uspass, date_create, time_create) VALUES ('$name','$doc','$mun','$dep','$dateborn','$sex','$clean_user','$crypt_pass','curdate()','curtime()')";
-		$result = $this->_connect->SimpleSQL($query);
+		$result = $this->_connect->DoSql($query);
 		if($result){
 				$res = "1";
 		}else{
