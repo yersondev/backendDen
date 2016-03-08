@@ -5,14 +5,6 @@ include('../../abstract/functions.php');
 
 class User extends Conexion{
 
-	private $_name;
-	private $_doc;
-	private $_mun;
-	private $_dep;
-	private $_dateBorn;
-	private $_sex;
-	private $_username;
-	private $_password;
 	private $_connect;
 
 	function __construct(){
